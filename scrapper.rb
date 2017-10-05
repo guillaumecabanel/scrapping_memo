@@ -1,25 +1,31 @@
 require 'open-uri'
 require 'nokogiri'
 
-html_file = open("https://dribbble.com/search?q=wagon")
+search_url = "https://dribbble.com/search?q=wagon" # <= customize
+
+html_file = open(search_url)
 html_document = Nokogiri::HTML(html_file)
 
-dribbbles = html_document.css('li.group')
+collection_css_path = 'li.group' # <= customize
+collection = html_document.css(collection_css_path)
 
-dribbbles.each do |dribbble|
+collection.each do |element|
   #title
-  title = dribbble.css('.dribbble .dribbble-shot .dribbble-img a.dribbble-over strong').text
+  title_css_path = '.dribbble .dribbble-shot .dribbble-img a.dribbble-over strong' # <= customize
+  title = element.css(title_css_path).text
 
   # skip if it's not a real Dribbble
   unless title.empty?
     # url
-    relative_url = dribbble.css('.dribbble .dribbble-shot .dribbble-img a.dribbble-over').attr('href')
-    absolute_url = "https://dribbble.com/#{relative_url}"
+    relative_url_css_path = '.dribbble .dribbble-shot .dribbble-img a.dribbble-over' # <= customize
+    relative_url = element.css(url_css_path).attr('href')
+    absolute_url = "https://dribbble.com/#{relative_url}" # <= customize
     # or
     # absolute_url = "https://dribbble.com/" + relative_url
 
     # image
-    image_url = dribbble.css('.dribbble .dribbble-shot div.dribbble-img a.dribbble-link picture img').attr('src')
+    image_url_css_path = '.dribbble .dribbble-shot div.dribbble-img a.dribbble-link picture img' # <= customize
+    image_url = element.css(image_url_css_path).attr('src')
 
     # displaying info
     puts '####################'
