@@ -18,7 +18,7 @@ collection.each do |element|
   unless title.empty?
     # url
     relative_url_css_path = '.dribbble .dribbble-shot .dribbble-img a.dribbble-over' # <= customize
-    relative_url = element.css(url_css_path).attr('href')
+    relative_url = element.css(relative_url_css_path).attr('href')
     absolute_url = "https://dribbble.com/#{relative_url}" # <= customize
     # or
     # absolute_url = "https://dribbble.com/" + relative_url
